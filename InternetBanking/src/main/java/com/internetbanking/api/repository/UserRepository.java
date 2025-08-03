@@ -8,5 +8,5 @@ import com.internetbanking.api.model.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    UserDetails findByLogin(String username);
+    UserDetails findByEmail(String username);
 }
