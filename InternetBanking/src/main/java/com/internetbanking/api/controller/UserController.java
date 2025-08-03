@@ -9,7 +9,7 @@ import com.internetbanking.api.service.UserService;
 @RequestMapping("/user")
 public class UserController {
 
-	private UserService service;
+	private final UserService service;
 
 	public UserController(UserService service) {
 		super();

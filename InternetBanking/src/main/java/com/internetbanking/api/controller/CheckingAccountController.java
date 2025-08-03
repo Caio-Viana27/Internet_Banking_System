@@ -9,7 +9,7 @@ import com.internetbanking.api.service.CheckingAccountService;
 @RequestMapping("/account")
 public class CheckingAccountController {
 
-	private CheckingAccountService service;
+	private final CheckingAccountService service;
 
 	public CheckingAccountController(CheckingAccountService service) {
 		super();

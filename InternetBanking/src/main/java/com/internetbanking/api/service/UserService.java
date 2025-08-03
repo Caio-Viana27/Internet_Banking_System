@@ -7,7 +7,7 @@ import com.internetbanking.api.repository.UserRepository;
 @Service
 public class UserService {
 
-	private UserRepository repository;
+	private final UserRepository repository;
 
 	public UserService(UserRepository repository) {
 		super();

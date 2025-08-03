@@ -20,7 +20,7 @@ public record UserDTO(
 		@NotNull List<CheckingAccount> accounts) {
 	
 	public UserDTO(@NotNull User user) {
-		this(user.getId(), user.getName(), user.getCpf(), user.getEmail(), user.getPassword(), user.getAccounts());
+		this(user.getId(), user.getName(), user.getCpf(), user.getEmail(), new Password(user.getPassword()), user.getAccounts());
 	}
 
 }

@@ -7,7 +7,7 @@ import com.internetbanking.api.repository.CheckingAccountRepository;
 @Service
 public class CheckingAccountService {
 
-	private CheckingAccountRepository repository;
+	private final CheckingAccountRepository repository;
 
 	public CheckingAccountService(CheckingAccountRepository repository) {
 		super();

@@ -1,5 +1,6 @@
 package com.internetbanking.api.model.entity;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.annotations.JdbcTypeCode;
@@ -17,9 +18,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity(name = "user")
-public class User {
+public class User implements UserDetails {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -103,10 +107,6 @@ public class User {
 		this.email = email;
 	}
 
-	public Password getPassword() {
-		return password;
-	}
-
 	public void setPassword(Password password) {
 		this.password = password;
 	}
@@ -118,6 +118,19 @@ public class User {
 	public void setAccount(List<CheckingAccount> accounts) {
 		this.accounts = accounts;
 	}
-	
-	
+
+	@Override
+	public String getPassword() {
+		return password.toString();
+	}
+
+	@Override
+	public String getUsername() {
+		return "";
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+	}
 }
