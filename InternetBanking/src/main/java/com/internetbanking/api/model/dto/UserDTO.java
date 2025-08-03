@@ -1,26 +1,31 @@
 package com.internetbanking.api.model.dto;
 
-import java.util.List;
-
-import com.internetbanking.api.model.CPF;
-import com.internetbanking.api.model.Email;
-import com.internetbanking.api.model.Name;
-import com.internetbanking.api.model.Password;
-import com.internetbanking.api.model.entity.CheckingAccount;
+import com.internetbanking.api.model.entity.BankingAccount;
 import com.internetbanking.api.model.entity.User;
-
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 public record UserDTO(
-		         Long id,
-		@NotNull Name name,
-		@NotNull CPF cpf,
-		@NotNull Email email,
-		@NotNull Password password,
-		@NotNull List<CheckingAccount> accounts) {
-	
-	public UserDTO(@NotNull User user) {
-		this(user.getId(), user.getName(), user.getCpf(), user.getEmail(), new Password(user.getPassword()), user.getAccounts());
-	}
-
+        Long id,
+        @NotBlank(message = "O nome não pode estar em branco")
+        String name,
+        @NotBlank(message = "O CPF não pode estar em branco")
+        String cpf,
+        @NotBlank(message = "O email não pode estar em branco")
+        @Email(message = "Formato de email inválido")
+        String email,
+        @NotBlank(message = "A senha não pode estar em branco")
+        String password,
+        BankingAccount account
+) {
+    public UserDTO(User user) {
+        this(
+                user.getId(),
+                user.getName(),
+                user.getCpf(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getAccount()
+        );
+    }
 }

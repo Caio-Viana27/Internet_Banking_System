@@ -4,7 +4,7 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import com.internetbanking.api.model.Balance;
-import com.internetbanking.api.model.dto.CheckingAccountDTO;
+import com.internetbanking.api.model.dto.BankingAccountDTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -12,8 +12,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 
-@Entity(name = "checking_account")
-public class CheckingAccount {
+@Entity(name = "banking_account")
+public class BankingAccount {
 	
 	@Id
 	@NotNull
@@ -30,7 +30,7 @@ public class CheckingAccount {
 	@JoinColumn(name = "id", nullable = false)
 	private User user;
 
-	public CheckingAccount(
+	public BankingAccount(
 			@NotNull Integer accountNumber,
 			@NotNull Integer agencyNumber,
 			@NotNull Balance balance) {
@@ -41,7 +41,7 @@ public class CheckingAccount {
 		this.balance = balance;
 	}
 	
-	public CheckingAccount(@NotNull CheckingAccountDTO dto) {
+	public BankingAccount(@NotNull BankingAccountDTO dto) {
 		super();
 		this.accountNumber = dto.accountNumber();
 		this.agencyNumber = dto.agencyNumber();
@@ -71,6 +71,4 @@ public class CheckingAccount {
 	public void setBalance(Balance balance) {
 		this.balance = balance;
 	}
-	
-	
 }

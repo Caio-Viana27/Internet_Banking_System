@@ -1,136 +1,100 @@
 package com.internetbanking.api.model.entity;
 
-import java.util.Collection;
-import java.util.List;
-
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
-import com.internetbanking.api.model.CPF;
-import com.internetbanking.api.model.Email;
-import com.internetbanking.api.model.Name;
-import com.internetbanking.api.model.Password;
-import com.internetbanking.api.model.dto.UserDTO;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-@Entity(name = "user")
+import java.util.Collection;
+import java.util.List;
+
+@Entity
+@Table(name = "users")
 public class User implements UserDetails {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@NotNull
-	@JdbcTypeCode(SqlTypes.VARCHAR)
-	private Name name;
-	
-	@NotNull
-	@JdbcTypeCode(SqlTypes.VARCHAR)
-	private CPF cpf;
-	
-	@NotNull
-	@JdbcTypeCode(SqlTypes.VARCHAR)
- 	private Email email;
-	
-	@NotNull
-	@JdbcTypeCode(SqlTypes.VARCHAR)
-	private Password password;
-	
-	@NotNull
-	@OneToMany(mappedBy = "user")
-	private List<CheckingAccount> accounts;
 
-	public User(Long id,
-			@NotNull Name name,
-			@NotNull CPF cpf,
-			@NotNull Email email,
-			@NotNull Password password,
-			@NotNull List<CheckingAccount> accounts) {
-		
-		super();
-		this.id = id;
-		this.name = name;
-		this.cpf = cpf;
-		this.email = email;
-		this.password = password;
-		this.accounts = accounts;
-	}
-	
-	public User(UserDTO userDTO) {
-		super();
-		this.id = userDTO.id();
-		this.name = userDTO.name();
-		this.cpf = userDTO.cpf();
-		this.email = userDTO.email();
-		this.password = userDTO.password();
-		this.accounts = userDTO.accounts();
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	public Long getId() {
-		return id;
-	}
+    @NotNull
+    private String name;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @NotNull
+    @Column(unique = true)
+    private String cpf;
 
-	public Name getName() {
-		return name;
-	}
+    @NotNull
+    @Column(unique = true)
+    private String email;
 
-	public void setName(Name name) {
-		this.name = name;
-	}
+    @NotNull
+    private String password;
 
-	public CPF getCpf() {
-		return cpf;
-	}
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private BankingAccount account;
 
-	public void setCpf(CPF cpf) {
-		this.cpf = cpf;
-	}
+    public User() {}
 
-	public Email getEmail() {
-		return email;
-	}
+    public User(String name, String cpf, String email, String password) {
+        this.name = name;
+        this.cpf = cpf;
+        this.email = email;
+        this.password = password;
+    }
 
-	public void setEmail(Email email) {
-		this.email = email;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setPassword(Password password) {
-		this.password = password;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public List<CheckingAccount> getAccounts() {
-		return accounts;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setAccount(List<CheckingAccount> accounts) {
-		this.accounts = accounts;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	@Override
-	public String getPassword() {
-		return password.toString();
-	}
+    public String getCpf() {
+        return cpf;
+    }
 
-	@Override
-	public String getUsername() {
-		return "";
-	}
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return List.of(new SimpleGrantedAuthority("ROLE_USER"));
-	}
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public BankingAccount getAccount() {
+        return account;
+    }
+
+    public void setAccount(BankingAccount account) {
+        this.account = account;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    @Override
+    public String getPassword() {
+        return this.password;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
 }
