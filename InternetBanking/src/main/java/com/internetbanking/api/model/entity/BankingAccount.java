@@ -1,51 +1,56 @@
 package com.internetbanking.api.model.entity;
 
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
-import com.internetbanking.api.model.Balance;
-import com.internetbanking.api.model.dto.BankingAccountDTO;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
-@Entity(name = "banking_account")
+@Entity
+@Table(name = "accounts")
 public class BankingAccount {
-	
+
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	@NotNull
+	@Column(unique = true)
 	private Integer accountNumber;
-	
+
 	@NotNull
 	private Integer agencyNumber;
-	
+
 	@NotNull
-	@JdbcTypeCode(SqlTypes.DECIMAL)
-	private Balance balance;
-	
-	@ManyToOne
-	@JoinColumn(name = "id", nullable = false)
+	@Column(precision = 10, scale = 2)
+	private BigDecimal balance;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
+	public BankingAccount() {
+	}
+
+	// Construtor principal para criar contas válidas
 	public BankingAccount(
 			@NotNull Integer accountNumber,
 			@NotNull Integer agencyNumber,
-			@NotNull Balance balance) {
-		
-		super();
+			@NotNull BigDecimal balance,
+			@NotNull User user) {
+
 		this.accountNumber = accountNumber;
 		this.agencyNumber = agencyNumber;
 		this.balance = balance;
+		this.user = user;
 	}
-	
-	public BankingAccount(@NotNull BankingAccountDTO dto) {
-		super();
-		this.accountNumber = dto.accountNumber();
-		this.agencyNumber = dto.agencyNumber();
-		this.balance = dto.balance();
+
+	// Getters e Setters para todos os campos
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Integer getAccountNumber() {
@@ -64,11 +69,19 @@ public class BankingAccount {
 		this.agencyNumber = agencyNumber;
 	}
 
-	public Balance getBalance() {
+	public BigDecimal getBalance() {
 		return balance;
 	}
 
-	public void setBalance(Balance balance) {
+	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

@@ -7,5 +7,5 @@ import com.internetbanking.api.model.entity.BankingAccount;
 
 @Repository
 public interface BankingAccountRepository extends JpaRepository<BankingAccount, Long> {
-
+    BankingAccount findByAccountNumber(Integer accountNumber);
 }
