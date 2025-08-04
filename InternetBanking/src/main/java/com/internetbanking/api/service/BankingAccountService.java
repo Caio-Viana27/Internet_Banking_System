@@ -16,9 +16,9 @@ public class BankingAccountService {
 		this.repository = repository;
 	}
 
-	public buscarUserByCpf
+	//public buscar
 
 	public BankingAccount createAccount(BankingAccountDTO bankingAccountDTO){
-
+		return null;
 	}
 }
