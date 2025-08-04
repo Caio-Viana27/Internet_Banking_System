@@ -39,21 +39,21 @@ public class UserService {
             throw new IllegalArgumentException("Usuário com este e-mail já cadastrado");
         }
 
-        String senhaCriptografada = passwordEncoder.encode(userDTO.password());
+        String encodedPassword = passwordEncoder.encode(userDTO.password());
 
-        User novoUsuario = new User(
+        User newUser = new User(
                 userDTO.name(),
                 userDTO.cpf(),
                 userDTO.email(),
-                senhaCriptografada
+                encodedPassword
         );
 
-        User usuarioSalvo = userRepository.save(novoUsuario);
+        User savedUser = userRepository.save(newUser);
 
-        bankingAccountService.createAccount(usuarioSalvo);
+        bankingAccountService.createAccount(savedUser);
 
-        // emailService.sendWelcomeEmail(usuarioSalvo);
+        // emailService.sendWelcomeEmail(savedUser);
 
-        return usuarioSalvo;
+        return savedUser;
     }
 }

@@ -6,17 +6,19 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public record TransactionDTO(
-        TransactionType tipo,
-        BigDecimal valor,
-        String descricao,
-        LocalDateTime dataHora
+        TransactionType transactionType,
+        BigDecimal amount,
+        String description,
+        LocalDateTime dateTime,
+        Integer accountNumber
 ) {
         public TransactionDTO(Transaction transaction) {
                 this(
-                        transaction.getTipo(),
-                        transaction.getValor(),
-                        transaction.getDescricao(),
-                        transaction.getDataHora()
+                        transaction.getTransactionType(),
+                        transaction.getAmount(),
+                        transaction.getDescription(),
+                        transaction.getDateTime(),
+                        transaction.getAccount().getAccountNumber()
                 );
         }
 }

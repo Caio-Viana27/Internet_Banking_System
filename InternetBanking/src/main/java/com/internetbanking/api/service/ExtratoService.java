@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ExtratoService {
@@ -31,16 +32,16 @@ public class ExtratoService {
             throw new EntityNotFoundException("Conta não encontrada.");
         }
 
-        List<Transaction> todasAsTransacoes = transactionRepository.findByAccountOrderByDataHoraDesc(account);
+        List<Transaction> transactions = transactionRepository.findByAccountOrderByDateTimeDesc(account);
 
         // Prepara as datas para a comparação
         LocalDateTime startDateTime = (dataInicio != null) ? dataInicio.atStartOfDay() : null;
         LocalDateTime endDateTime = (dataFim != null) ? dataFim.atTime(LocalTime.MAX) : null;
 
-        return todasAsTransacoes.stream()
-                .filter(t -> tipo == null || t.getTipo().equals(tipo))
-                .filter(t -> startDateTime == null || !t.getDataHora().isBefore(startDateTime))
-                .filter(t -> endDateTime == null || !t.getDataHora().isAfter(endDateTime))
+        return transactions.stream()
+                .filter(t -> tipo == null || t.getTransactionType().equals(tipo))
+                .filter(t -> startDateTime == null || !t.getDateTime().isBefore(startDateTime))
+                .filter(t -> endDateTime == null || !t.getDateTime().isAfter(endDateTime))
                 .collect(Collectors.toList());
     }
 }
