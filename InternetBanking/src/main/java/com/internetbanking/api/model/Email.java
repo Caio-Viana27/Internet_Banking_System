@@ -7,10 +7,15 @@ public class Email {
 
 	@NotNull
 	@NotBlank
-	private String cpf;
+	private String email;
 
-	public Email(@NotNull @NotBlank String cpf) {
+	public Email(@NotNull @NotBlank String email) {
 		super();
-		this.cpf = cpf;
+		this.email = email;
+	}
+
+	@Override
+	public String toString() {
+		return email;
 	}
 }

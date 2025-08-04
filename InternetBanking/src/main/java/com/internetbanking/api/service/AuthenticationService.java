@@ -4,7 +4,9 @@ import com.internetbanking.api.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AuthenticationService implements UserDetailsService {
 
     private final UserRepository repository;
@@ -14,9 +16,9 @@ public class AuthenticationService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String cpf) throws UsernameNotFoundException {
         // TODO Auto-generated method stub
-        return repository.findByLogin(username);
+        return repository.findByCpf(cpf);
     }
 }
 

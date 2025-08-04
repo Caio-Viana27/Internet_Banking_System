@@ -10,6 +10,6 @@ import com.internetbanking.api.model.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<UserDetails> findByCpf(String cpf);
-    Optional<UserDetails> findByEmail(String email);
+    User findByCpf(String cpf);
+    User findByEmail(String email);
 }

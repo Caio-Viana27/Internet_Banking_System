@@ -1,4 +1,4 @@
-/*package com.internetbanking.api.config.swagger;
+package com.internetbanking.api.config.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,4 +17,4 @@ public class SwaggerConfig {
                         .version("1.0")
                         .description("Documentação da API de Vendas de Selos"));
     }
-}*/
+}

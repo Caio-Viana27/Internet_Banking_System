@@ -1,17 +1,17 @@
 package com.internetbanking.api.model.dto;
 
 import com.internetbanking.api.model.Balance;
-import com.internetbanking.api.model.entity.CheckingAccount;
+import com.internetbanking.api.model.entity.BankingAccount;
 
 import jakarta.validation.constraints.NotNull;
 
-public record CheckingAccountDTO(
+public record BankingAccountDTO(
 		@NotNull Integer accountNumber,
 		@NotNull Integer agencyNumber,
 		@NotNull Balance balance) {
 
 	
-	public CheckingAccountDTO(@NotNull CheckingAccount account) {
+	public BankingAccountDTO(@NotNull BankingAccount account) {
 		this(account.getAccountNumber(), account.getAgencyNumber(), account.getBalance());
 	}
 }
