@@ -36,7 +36,6 @@ public class Transaction {
     public Transaction() {
     }
 
-    // Construtor para facilitar a criação
     public Transaction(TransactionType tipo, BigDecimal valor, String descricao, BankingAccount account) {
         this.tipo = tipo;
         this.valor = valor;
