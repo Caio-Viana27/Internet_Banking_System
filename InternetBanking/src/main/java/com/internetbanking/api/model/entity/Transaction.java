@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "transactions") // Nome da tabela no banco
+@Table(name = "transactions")
 public class Transaction {
 
     @Id
@@ -16,35 +16,31 @@ public class Transaction {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private TransactionType tipo;
+    private TransactionType transactionType;
 
     @NotNull
     @Column(precision = 10, scale = 2)
-    private BigDecimal valor;
+    private BigDecimal amount;
 
     @NotNull
-    private LocalDateTime dataHora;
+    private LocalDateTime dateTime;
 
-    private String descricao;
+    private String description;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "conta_id")
+    @JoinColumn(name = "account_id")
     private BankingAccount account;
 
-    // Construtor vazio para o JPA
-    public Transaction() {
-    }
+    public Transaction() {}
 
-    public Transaction(TransactionType tipo, BigDecimal valor, String descricao, BankingAccount account) {
-        this.tipo = tipo;
-        this.valor = valor;
-        this.descricao = descricao;
+    public Transaction(TransactionType transactionType, BigDecimal amount, String description, BankingAccount account) {
+        this.transactionType = transactionType;
+        this.amount = amount;
+        this.description = description;
         this.account = account;
-        this.dataHora = LocalDateTime.now();
+        this.dateTime = LocalDateTime.now();
     }
-
-    // Getters e Setters
 
     public Long getId() {
         return id;
@@ -54,36 +50,36 @@ public class Transaction {
         this.id = id;
     }
 
-    public TransactionType getTipo() {
-        return tipo;
+    public TransactionType getTransactionType() {
+        return transactionType;
     }
 
-    public void setTipo(TransactionType tipo) {
-        this.tipo = tipo;
+    public void setTransactionType(TransactionType transactionType) {
+        this.transactionType = transactionType;
     }
 
-    public BigDecimal getValor() {
-        return valor;
+    public BigDecimal getAmount() {
+        return amount;
     }
 
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
+    public void setAmount(BigDecimal valor) {
+        this.amount = valor;
     }
 
-    public LocalDateTime getDataHora() {
-        return dataHora;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setDataHora(LocalDateTime dataHora) {
-        this.dataHora = dataHora;
+    public void setDataHora(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public BankingAccount getAccount() {

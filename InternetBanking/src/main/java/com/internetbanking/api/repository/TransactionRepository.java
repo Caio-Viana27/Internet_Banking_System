@@ -11,5 +11,6 @@ import java.util.List;
 
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
-    List<Transaction> findByAccountOrderByDataHoraDesc(BankingAccount account);
+
+    List<Transaction> findByAccountOrderByDateTimeDesc(BankingAccount account);
 }
