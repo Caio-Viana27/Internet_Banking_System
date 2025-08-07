@@ -23,12 +23,24 @@ public class SecurityConfigurations {
         this.securityFilter = securityFilter;
     }
 
-    //Testar endpoints sem validação, dps comenta essa codigo e descomenta o outro para adicionar autenticação
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf(csrf -> csrf.disable())
-                .sessionManagement(sess ->
-                        sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        return http
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(authorize -> authorize
+                        // Libera os endpoints de login e cadastro de usuário
+                        .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/users").permitAll()
+
+                        // Libera os endpoints do Swagger
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+
+                        // Protege todos os outros endpoints
+                        .anyRequest().authenticated()
+                )
+                // Adiciona seu filtro customizado para rodar antes do filtro padrão de autenticação
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
