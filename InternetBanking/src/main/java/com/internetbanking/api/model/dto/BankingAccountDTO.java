@@ -19,7 +19,6 @@ public record BankingAccountDTO(
 ) {
 
 	public BankingAccountDTO(@NotNull BankingAccount account) {
-		// PONTO 2: A conversão agora funciona, pois account.getBalance() retorna BigDecimal
 		this(account.getAccountNumber(), account.getAgencyNumber(), account.getBalance());
 	}
 }

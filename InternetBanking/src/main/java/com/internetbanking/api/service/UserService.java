@@ -12,9 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final BankingAccountService bankingAccountService;
     private final PasswordEncoder passwordEncoder;
-    // private final EmailService emailService;
+    private final BankingAccountService bankingAccountService;
 
     public UserService(UserRepository userRepository, BankingAccountService bankingAccountService, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
@@ -25,7 +24,16 @@ public class UserService {
     public User searchUserByCpf(String cpf) {
         User user = userRepository.findByCpf(cpf);
         if (user == null) {
-            throw new EntityNotFoundException("Usuário com CPF " + cpf + " não encontrado.");
+            throw new EntityNotFoundException("User's CPF not found: " + cpf);
+        }
+        return user;
+    }
+    
+    public User searchByAccountNumber(Integer accountNumber) {
+        User user = (bankingAccountService.searchBankAccountByAccountNumber(accountNumber)).getUser();
+        
+        if (user == null) {
+            throw new EntityNotFoundException("User not found for AccountNumb: " + accountNumber);
         }
         return user;
     }
@@ -33,10 +41,10 @@ public class UserService {
     @Transactional
     public User createUser(UserDTO userDTO) {
         if (userRepository.findByCpf(userDTO.cpf()) != null) {
-            throw new IllegalArgumentException("Usuário com este CPF já cadastrado");
+            throw new IllegalArgumentException("this cpf: " + userDTO.cpf() + " belongs to another account, maybe try login");
         }
         if (userRepository.findByEmail(userDTO.email()) != null) {
-            throw new IllegalArgumentException("Usuário com este e-mail já cadastrado");
+            throw new IllegalArgumentException("this email: " + userDTO.email() + " is already registered");
         }
 
         String encodedPassword = passwordEncoder.encode(userDTO.password());
@@ -47,13 +55,8 @@ public class UserService {
                 userDTO.email(),
                 encodedPassword
         );
-
         User savedUser = userRepository.save(newUser);
-
         bankingAccountService.createAccount(savedUser);
-
-        // emailService.sendWelcomeEmail(savedUser);
-
         return savedUser;
     }
 }

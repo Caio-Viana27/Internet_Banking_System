@@ -24,7 +24,7 @@ public class JWTokenService {
             var algorithm = Algorithm.HMAC256(secret);
             return JWT.create()
                     .withIssuer("Internet Banking System")
-                    .withSubject(user.getEmail().toString())
+                    .withSubject(user.getCpf())
                     .withExpiresAt(expirationDate())
                     .sign(algorithm);
         } catch (JWTCreationException exception) {

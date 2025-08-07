@@ -12,7 +12,7 @@ import com.emailSender.service.api.model.entity.EmailEntity;
 import com.emailSender.service.api.service.EmailService;
 
 @RestController
-@RequestMapping("/email")
+@RequestMapping("/send")
 public class EmailController {
 	
 	private EmailService service;

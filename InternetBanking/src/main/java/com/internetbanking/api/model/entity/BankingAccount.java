@@ -8,12 +8,9 @@ import java.math.BigDecimal;
 @Table(name = "accounts")
 public class BankingAccount {
 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-	@NotNull
-	@Column(unique = true)
 	private Integer accountNumber;
 
 	@NotNull
@@ -41,16 +38,6 @@ public class BankingAccount {
 		this.agencyNumber = agencyNumber;
 		this.balance = balance;
 		this.user = user;
-	}
-
-	// Getters e Setters para todos os campos
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public Integer getAccountNumber() {

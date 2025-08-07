@@ -47,6 +47,6 @@ public class SecurityFilter extends OncePerRequestFilter {
         if (token == null || token.isEmpty() || !token.startsWith("Bearer")) {
             return  null;
         }
-        return token.replace("Bearer", "");
+        return token.replace("Bearer", "").trim();
     }
 }

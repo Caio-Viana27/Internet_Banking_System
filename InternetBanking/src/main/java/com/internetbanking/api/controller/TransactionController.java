@@ -3,7 +3,8 @@ package com.internetbanking.api.controller;
 import com.internetbanking.api.model.dto.BankingAccountDTO;
 import com.internetbanking.api.model.dto.TransactionDTO;
 import com.internetbanking.api.model.entity.BankingAccount;
-import com.internetbanking.api.service.BankingAccountService;
+import com.internetbanking.api.service.TransactionService;
+
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,15 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/accounts") // Convenção REST: usar o plural
-public class BankingAccountController {
+@RequestMapping("/transactions")
+public class TransactionController {
 
-	private final BankingAccountService service;
+	private final TransactionService service;
 
-	public BankingAccountController(BankingAccountService service) {
+	public TransactionController(TransactionService service) {
 		this.service = service;
 	}
-
+	
 	@PostMapping("/deposit")
 	public ResponseEntity<BankingAccountDTO> deposit(@Valid @RequestBody TransactionDTO transactionDTO) {
 		BankingAccount updatedAccount = service.deposit(
@@ -41,6 +42,10 @@ public class BankingAccountController {
 
 	@PostMapping("/payment")
 	public ResponseEntity<BankingAccountDTO> payment(@Valid @RequestBody TransactionDTO transactionDTO) {
-		return ResponseEntity.status(501).build();
+		BankingAccount updatedAccount = service.payment(
+				transactionDTO.accountNumber(),
+				transactionDTO.amount()
+		);
+		return ResponseEntity.ok(new BankingAccountDTO(updatedAccount));
 	}
 }
