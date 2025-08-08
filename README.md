@@ -1,22 +1,19 @@
+🏦 Internet Banking System
 
-# 💻 Internet Banking System
+Sistema bancário completo desenvolvido com Java e Spring Boot, oferecendo funcionalidades essenciais para operações bancárias digitais como gerenciamento de contas, transações financeiras e envio de notificações por e-mail.
+📌 Funcionalidades
 
-Este repositório contém um sistema bancário simples com arquitetura modular, incluindo um serviço dedicado para envio de e-mails. O objetivo é simular funcionalidades essenciais de um sistema bancário, como comunicação com usuários através de e-mails.
+    🧑 Cadastro e gerenciamento de usuários
 
-## 📦 Estrutura do Projeto
+    💼 Abertura e gerenciamento de contas bancárias
 
-- **EmailSenderService/**: Serviço responsável por enviar e-mails (notificações, confirmações, etc.).
-  - Usa Spring Boot
-  - API REST para envio de e-mails
-  - Integração com banco de dados
-- Outros módulos podem ser adicionados para expandir o sistema (ex: gerenciamento de contas, autenticação, transferências bancárias).
+    💳 Transações: depósito, saque e transferência entre contas
 
-## 🚀 Funcionalidades
+    🧾 Consulta de saldo e extrato bancário
 
-- ✅ Envio de e-mails com base em dados fornecidos via API REST
-- ✅ Armazenamento de status dos e-mails (ENVIADO, ERRO, etc.)
-- ✅ DTOs para comunicação entre camadas
-- ✅ Logs e estrutura padrão do Spring Boot
+    📬 Envio de notificações por e-mail (confirmação de transações, alertas, etc.)
+
+    🔐 Autenticação e segurança de acesso via Spring Security
 
 ## 🔧 Tecnologias Utilizadas
 
@@ -27,49 +24,17 @@ Este repositório contém um sistema bancário simples com arquitetura modular, 
 - Postgresql
 - Maven
 
-## 📂 Como rodar o projeto
-
-### Pré-requisitos
-
-- Java JDK 17+
-- Maven
-
-### Passos
-
-```bash
-# Clone o repositório
-git clone https://github.com/Caio-Viana27/Internet_Banking_System.git
-cd Internet_Banking_System/EmailSenderService
-
-# Compile e rode o projeto
-./mvnw spring-boot:run
-```
-
 A API REST ficará disponível em: `http://localhost:8080`
 
-## 📬 Endpoints principais (EmailSenderService)
+## Endpoints principais
 
-| Método | Endpoint       | Descrição                  |
-|--------|----------------|----------------------------|
-| POST   | /sending-email | Envia um e-mail            |
-
-### Exemplo de Requisição
-
-```json
-POST /sending-email
-{
-  "ownerRef": "Banco XYZ",
-  "emailFrom": "banco@xyz.com",
-  "emailTo": "cliente@email.com",
-  "subject": "Confirmação de Ação",
-  "text": "Seu saldo foi atualizado com sucesso."
-}
-```
-
-## 🧪 Testes
-
-Execute os testes com:
-
-```bash
-./mvnw test
-```
+| Método | Endpoint               | Descrição                     |
+| ------ | ---------------------- | ----------------------------- |
+| POST   | /users                 | Cadastrar novo usuário        |
+| GET    | /users/{id}            | Buscar informações do usuário |
+| POST   | /accounts              | Criar nova conta bancária     |
+| GET    | /accounts/{id}         | Consultar dados da conta      |
+| POST   | /transactions/deposit  | Realizar um depósito          |
+| POST   | /transactions/withdraw | Realizar um saque             |
+| POST   | /transactions/transfer | Realizar uma transferência    |
+| GET    | /accounts/{id}/history | Consultar extrato da conta    |
