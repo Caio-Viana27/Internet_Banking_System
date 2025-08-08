@@ -17,7 +17,6 @@ public class AuthenticationService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String cpf) throws UsernameNotFoundException {
-        // TODO Auto-generated method stub
         return repository.findByCpf(cpf);
     }
 }

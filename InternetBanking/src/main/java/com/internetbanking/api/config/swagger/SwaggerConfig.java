@@ -13,8 +13,8 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("API de Vendas de Selos")
-                        .version("1.0")
-                        .description("Documentação da API de Vendas de Selos"));
+                .title("Internet Banking Api")
+                .version("1.0")
+                .description("Internet Banking System Documentation"));
     }
 }

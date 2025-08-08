@@ -13,7 +13,7 @@ public class EmailSenderService {
 	private WebClient webClient;
 	
 	private String clientEmail = "caio.vtc27@gmail.com";
-	private final String uriEmailServer = "http://localhost:8082/emailsenderservice/send";
+	private final String uriEmailServer = "localhost:8082/emailsenderservice/send";
 	
 	public EmailSenderService(WebClient webClient) {
 		super();
@@ -49,6 +49,7 @@ public class EmailSenderService {
 					+ "value: " + transaction.amount() + "\n"
 					+ transaction.description();
 		
+		System.out.println("withdraw");
 		EmailDTO withdrawEmail = new EmailDTO(clientEmail, userEmail, subject, text);
 		
 		this.send(withdrawEmail);

@@ -37,7 +37,7 @@ public class BankingAccountService {
 		BankingAccount account = accountRepository.findByAccountNumber(accountNumber);
 		
 		if (account == null) {
-			throw new EntityNotFoundException("Conta não encontrada.");
+			throw new EntityNotFoundException("Account not found!");
 		}
 		
 		return account;
