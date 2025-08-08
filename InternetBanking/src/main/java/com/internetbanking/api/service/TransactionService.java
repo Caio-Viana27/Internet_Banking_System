@@ -47,6 +47,7 @@ public class TransactionService {
 		transactionRepository.save(transaction);
 		
 		User user = userService.searchByAccountNumber(transaction.getAccount().getAccountNumber());
+		//System.out.println(user.getEmail());
 		emailService.sendDepositEmail(new TransactionDTO(transaction), user.getEmail());
 		
 		return account;

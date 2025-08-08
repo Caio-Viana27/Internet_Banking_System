@@ -8,10 +8,10 @@
 		<version>3.5.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.gateway</groupId>
-	<artifactId>gateway</artifactId>
+	<groupId>com.emailsender.service</groupId>
+	<artifactId>emailsender</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>gateway</name>
+	<name>emailsender</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>

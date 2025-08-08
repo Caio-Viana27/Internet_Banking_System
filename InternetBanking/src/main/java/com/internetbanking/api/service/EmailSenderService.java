@@ -12,7 +12,7 @@ public class EmailSenderService {
 	
 	private WebClient webClient;
 	
-	private String clientEmail = "ccr_pweb.ib@hotmail.com";
+	private String clientEmail = "caio.vtc27@gmail.com";
 	private final String uriEmailServer = "http://localhost:8082/emailsenderservice/send";
 	
 	public EmailSenderService(WebClient webClient) {
